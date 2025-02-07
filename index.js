@@ -5,7 +5,7 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import allRoute from './src/routes/allRoutes.js';
 
-
+// envaroment variable
 dotenv.config();
 
 const app = express();
@@ -13,7 +13,10 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:5173', // end point
+  credentials: true 
+}));
 
 // Routes
 app.use('/api/', allRoute);

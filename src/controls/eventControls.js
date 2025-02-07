@@ -68,16 +68,16 @@ export const newMultipleEvents = async (req, res) => {
 
 // Get user's events
 export const getEvents = async (req, res) => {
-  const events = await userEvents.find({ user: req.user });
+  const events = await userEvents.find({ userId: req.user });
   res.json(events);
 };
 
 // Update an event
 export const updateEvent = async (req, res) => {
-  const { title, description, date } = req.body;
+  const { title, description, date, time } = req.body;
   const event = await userEvents.findOneAndUpdate(
-    { _id: req.params.id, user: req.user },
-    { title, description, date },
+    { _id: req.params.id },
+    { title, description, date, time },
     { new: true }
   );
   if (!event) return res.status(404).json({ message: 'Event not found' });
@@ -86,10 +86,9 @@ export const updateEvent = async (req, res) => {
 
 // Delete an event
 export const deleteEvent = async (req, res) => {
-  const event = await userEvents.findOneAndDelete({ _id: req.params.id, user: req.user });
+  const event = await userEvents.findOneAndDelete({ _id: req.params.id });
   if (!event) return res.status(404).json({ message: 'Event not found' });
   res.json({ message: 'Event deleted' });
 };
-
 
 

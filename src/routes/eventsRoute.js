@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createEvent,  deleteEvent, getEvents, newMultipleEvents, protect, updateEvent } from "../controls/eventRoutes.js";
+import { createEvent,  deleteEvent, getEvents, newMultipleEvents, protect, updateEvent } from "../controls/eventControls.js";
 
 const eventRoute = Router();
 
@@ -8,17 +8,19 @@ const eventRoute = Router();
 // Create an event
 eventRoute.post('/', protect, createEvent);
 
+//getEvets
+eventRoute.get('/', protect, getEvents);  
+ 
 //Create multiple event
 eventRoute.post('/multiple', protect, newMultipleEvents);
 
-// Get user's events
-eventRoute.get('/', protect, getEvents);
 
 // Update an event
 eventRoute.put('/:id', protect, updateEvent);
 
 // Delete an event
-eventRoute.delete('/:id', deleteEvent);
+eventRoute.delete('/:id',protect, deleteEvent);
+
 
 
 
