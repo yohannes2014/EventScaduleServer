@@ -14,12 +14,13 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-  origin: 'http://localhost:5173', // end point
+  origin:['http://localhost:5173', 'https://myeventscheduler.netlify.app/'],
   credentials: true 
 }));
 
 // Routes
 app.use('/api/', allRoute);
+
 
 
 // Connect to MongoDB
