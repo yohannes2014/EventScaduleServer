@@ -14,8 +14,9 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-  origin: 'http://localhost:5173',
-  credentials: true 
+  origin: "https://eventscheduler-2ksp.onrender.com",
+  credentials: true,
+  methods: ["GET", "POST", "PUT"],  
 }));
 
 
