@@ -12,7 +12,7 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(cors({
- /*  , */
+
   origin: "https://eventscheduler-2ksp.onrender.com",
   credentials: true,
 }));
