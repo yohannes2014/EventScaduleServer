@@ -1,7 +1,6 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import allRoute from './src/routes/allRoutes.js';
 
@@ -12,11 +11,10 @@ const app = express();
 
 // Middleware
 app.use(express.json());
-app.use(cookieParser());
 app.use(cors({
+ /*  , */
   origin: "https://eventscheduler-2ksp.onrender.com",
   credentials: true,
-  methods: ["GET", "POST", "PUT"],  
 }));
 
 

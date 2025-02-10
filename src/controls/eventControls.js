@@ -5,18 +5,27 @@ import userEvents from '../models/eventsModel.js';
 
 
 // Middleware to authenticate JWT
+
 export const protect = (req, res, next) => {
-  const token = req.cookies.token;
-  if (!token) return res.status(401).json({ message: 'Not authorized' });
+  // Get token from Authorization header
+  const token = req.header('Authorization')?.split(' ')[1];
+
+  if (!token) {
+    return res.status(401).json({ message: 'Not authorized, no token provided' });
+  }
 
   try {
+    // Verify the token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    // Attach the user info to the request object (e.g., user ID)
     req.user = decoded.id;
     next();
   } catch (error) {
-    return res.status(401).json({ message: 'Not authorized' });
+    return res.status(401).json({ message: 'Not authorized, invalid token' });
   }
 };
+
 
 // Create an event
 export const createEvent = async (req, res) => {
@@ -71,6 +80,8 @@ export const getEvents = async (req, res) => {
   const events = await userEvents.find({ userId: req.user });
   res.json(events);
 };
+
+
 
 // Update an event
 export const updateEvent = async (req, res) => {
