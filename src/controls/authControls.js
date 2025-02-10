@@ -2,7 +2,7 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import  userModel  from '../models/usersModel.js';
 import userEvents from '../models/eventsModel.js';
-
+import { format } from 'date-fns'
 
 
 // Register route
@@ -21,11 +21,12 @@ export const userRegister = async (req, res) => {
         username,
         email,
         password: passwordHash,
-        dateOfReg: new Date(),
+        dateOfReg: format(new Date(), 'yyyy-MM-dd HH:mm:ss'),
     });
 // save to database
     await newUser.save();
     res.status(201).json('Successfully registered');
+    console.log(newUser)
 
 }
 catch(err){
